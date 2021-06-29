@@ -41,33 +41,41 @@ export default class GotService {
 		return this._transformHouse(res);
 	}
 
+	isKnown(data) {
+		if (data) {
+			return data;
+		} else {
+			return "Unknown";
+		}
+	}
+
 	_transformCharacter(character) {
 		return {
-			name: character.name,
-			gender: character.gender,
-			born: character.born,
-			died: character.died,
-			culture: character.culture,
+			name: this.isKnown(character.name),
+			gender: this.isKnown(character.gender),
+			born: this.isKnown(character.born),
+			died: this.isKnown(character.died),
+			culture: this.isKnown(character.culture),
 		};
 	}
 
 	_transformHouse(house) {
 		return {
-			name: house.name,
-			region: house.region,
-			words: house.words,
-			titles: house.titles,
-			overlord: house.overlord,
-			ansectralWeapons: house.ansectralWeapons,
+			name: this.isKnown(house.name),
+			region: this.isKnown(house.region),
+			words: this.isKnown(house.words),
+			titles: this.isKnown(house.titles),
+			overlord: this.isKnown(house.overlord),
+			ansectralWeapons: this.isKnown(house.ansectralWeapons),
 		};
 	}
 
 	_transformBook(book) {
 		return {
-			name: book.name,
-			numberOfPages: book.numberOfPages,
-			publiser: book.publiser,
-			released: book.released,
+			name: this.isKnown(book.name),
+			numberOfPages: this.isKnown(book.numberOfPages),
+			publiser: this.isKnown(book.publiser),
+			released: this.isKnown(book.released),
 		};
 	}
 }
