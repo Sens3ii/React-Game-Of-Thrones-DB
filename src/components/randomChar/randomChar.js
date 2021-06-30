@@ -18,7 +18,7 @@ const RandomCharBlock = styled.div`
 export default class RandomChar extends Component {
 	componentDidMount() {
 		this.updateChar();
-		this.randCharInterval = setInterval(this.updateChar, 2500);
+		this.randCharInterval = setInterval(this.updateChar, 5000);
 	}
 
 	componentWillUnmount() {

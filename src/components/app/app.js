@@ -2,15 +2,13 @@ import React, { Component } from "react";
 
 import Header from "../header";
 import RandomChar from "../randomChar";
-import ItemList from "../itemList";
-import CharDetails from "../charDetails";
+import CharacterPage from "../characterPage";
 import "./app.css";
 import ErrorMessage from "../errorMessage";
 
 export default class App extends Component {
 	state = {
 		showRandomChar: true,
-		selectedChar: null,
 		error: false,
 	};
 	componentDidCatch() {
@@ -24,9 +22,6 @@ export default class App extends Component {
 		});
 	};
 
-	onCharSelected = (id) => {
-		this.setState({ selectedChar: id });
-	};
 	render() {
 		if (this.state.error) {
 			return <ErrorMessage />;
@@ -46,14 +41,7 @@ export default class App extends Component {
 							{char}
 						</div>
 					</div>
-					<div className="row">
-						<div className="col-md-6">
-							<ItemList onCharSelected={this.onCharSelected} />
-						</div>
-						<div className="col-md-6">
-							<CharDetails charId={this.state.selectedChar} />
-						</div>
-					</div>
+					<CharacterPage />
 				</div>
 			</>
 		);

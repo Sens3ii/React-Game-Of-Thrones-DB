@@ -22,8 +22,7 @@ export default class GotService {
 	}
 
 	async getAllCharacters() {
-		const res = await this.getResource(`/characters?page=5&pageSize=5`);
-		console.log(res);
+		const res = await this.getResource(`/characters?page=5&pageSize=10`);
 		return res.map((item) => this._transformCharacter(item));
 	}
 
@@ -43,7 +42,6 @@ export default class GotService {
 	}
 
 	isKnown(data) {
-		console.log(data);
 		if (data) {
 			return data;
 		} else {
@@ -51,8 +49,14 @@ export default class GotService {
 		}
 	}
 
+	_extractId = (item) => {
+		const idRegExp = /\/([0-9]*)$/;
+		return item.url.match(idRegExp)[1];
+	};
+
 	_transformCharacter(character) {
 		return {
+			id: this._extractId(character),
 			name: this.isKnown(character.name),
 			gender: this.isKnown(character.gender),
 			born: this.isKnown(character.born),
@@ -63,6 +67,7 @@ export default class GotService {
 
 	_transformHouse(house) {
 		return {
+			id: this._extractId(house),
 			name: this.isKnown(house.name),
 			region: this.isKnown(house.region),
 			words: this.isKnown(house.words),
@@ -74,6 +79,7 @@ export default class GotService {
 
 	_transformBook(book) {
 		return {
+			id: this._extractId(book),
 			name: this.isKnown(book.name),
 			numberOfPages: this.isKnown(book.numberOfPages),
 			publiser: this.isKnown(book.publiser),

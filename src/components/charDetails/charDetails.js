@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import gotService from "../../services/gotService";
 import Spinner from "../spinner";
-
+import ErrorMessage from "../errorMessage";
 const CharDetailsBlock = styled.div`
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
@@ -12,16 +12,18 @@ const CharDetailsBlock = styled.div`
 		text-align: center;
 	}
 `;
-// const SelectError = styled.a`
-// 	color: #fff;
-// 	text-align: center;
-// 	font-size: 26px;
-// `;
+const SelectError = styled.span`
+	color: #fff;
+	text-align: center;
+	font-size: 26px;
+`;
 
 export default class CharDetails extends Component {
 	gotService = new gotService();
 	state = {
 		char: null,
+		error: false,
+		loading: true,
 	};
 
 	componentDidMount() {
@@ -32,43 +34,66 @@ export default class CharDetails extends Component {
 			this.updateChar();
 		}
 	}
+
+	onCharLoaded = () => {
+		this.setState({ loading: false });
+	};
+
+	onError = (err) => {
+		this.setState({ error: true, loading: false });
+	};
 	updateChar() {
 		const { charId } = this.props;
 		if (!charId) {
 			return;
 		}
-		this.gotService.getCharacter(charId).then((character) => {
-			this.setState({ char: character });
-		});
-		// this.foo.bar = 0;
+		this.setState({ loading: true });
+		this.gotService
+			.getCharacter(charId)
+			.then((character) => {
+				this.setState({ char: character });
+			})
+			.then(this.onCharLoaded)
+			.catch(this.onError);
 	}
 	render() {
-		if (!this.state.char) {
-			return <span className="select-error">Please select a character</span>;
-		}
-		const { name, gender, born, died, culture } = this.state.char;
+		const { char, error, loading } = this.state;
+		const errorMessage = error ? <ErrorMessage /> : null;
+		const spinner = loading ? <Spinner /> : null;
+		const content = !(loading || error) ? <Content char={char} /> : null;
 		return (
 			<CharDetailsBlock className="rounded">
-				<h4>{name}</h4>
-				<ul className="list-group list-group-flush">
-					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Gender</span>
-						<span>{gender}</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Born</span>
-						<span>{born}</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Died</span>
-						<span>{died}</span>
-					</li>
-					<li className="list-group-item d-flex justify-content-between">
-						<span className="term">Culture</span>
-						<span>{culture}</span>
-					</li>
-				</ul>
+				{errorMessage}
+				{spinner}
+				{content}
 			</CharDetailsBlock>
 		);
 	}
 }
+
+const Content = ({ char }) => {
+	const { name, gender, born, died, culture } = char;
+	return (
+		<>
+			<h4>{name}</h4>
+			<ul className="list-group list-group-flush">
+				<li className="list-group-item d-flex justify-content-between">
+					<span className="term">Gender</span>
+					<span>{gender}</span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<span className="term">Born</span>
+					<span>{born}</span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<span className="term">Died</span>
+					<span>{died}</span>
+				</li>
+				<li className="list-group-item d-flex justify-content-between">
+					<span className="term">Culture</span>
+					<span>{culture}</span>
+				</li>
+			</ul>
+		</>
+	);
+};
