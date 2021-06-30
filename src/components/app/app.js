@@ -47,22 +47,22 @@ export default class App extends Component {
 						</div>
 					</div>
 					<CharacterPage />
-					<div className="row">
+					{/* <div className="row">
 						<div className="col-md-6">
 							<ItemList onCharSelected={this.onCharSelected} getData={this.gotService.getAllBooks()} />
 						</div>
-						{/* <div className="col-md-6">
-						<BookDetails charId={this.state.selectedChar} />
-					</div> */}
+						<div className="col-md-6">
+							<BookDetails charId={this.state.selectedChar} />
+						</div>
 					</div>
 					<div className="row">
 						<div className="col-md-6">
 							<ItemList onCharSelected={this.onCharSelected} getData={this.gotService.getAllHouses()} />
 						</div>
-						{/* <div className="col-md-6">
-						<BookDetails charId={this.state.selectedChar} />
+						<div className="col-md-6">
+							<BookDetails charId={this.state.selectedChar} />
+						</div>
 					</div> */}
-					</div>
 				</div>
 			</>
 		);
