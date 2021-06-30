@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import "./itemList.css";
-import gotService from "../../services/gotService";
 import Spinner from "../spinner";
 
 export default class ItemList extends Component {
-	gotService = new gotService();
 	state = {
-		charList: null,
+		itemList: null,
 		error: false,
 	};
+
 	componentDidMount() {
-		this.gotService
-			.getAllCharacters()
-			.then((charList) => {
-				this.setState({ charList });
+		const { getData } = this.props;
+
+		getData
+			.then((itemList) => {
+				this.setState({ itemList });
 			})
 			.catch(this.onError);
 	}
+
 	onError = (err) => {
 		this.setState({ error: true });
 	};
@@ -33,12 +34,12 @@ export default class ItemList extends Component {
 	}
 
 	render() {
-		const { charList } = this.state;
-		const spinner = !charList ? <Spinner /> : null;
-		const items = charList ? this.renderItems(charList) : null;
+		const { itemList } = this.state;
+		const spinner = !itemList ? <Spinner /> : null;
+		const items = itemList ? this.renderItems(itemList) : null;
 
 		return (
-			<ul className="item-list list-group">
+			<ul className="item-list list-group mb-3">
 				{spinner}
 				{items}
 			</ul>

@@ -12,49 +12,50 @@ export default class GotService {
 		return await res.json();
 	};
 
-	async getAllBooks() {
+	getAllBooks = async () => {
 		const res = await this.getResource(`/books/`);
 		return res.map(this._transformBook);
-	}
-	async getBook(id) {
+	};
+
+	getBook = async (id) => {
 		const res = await this.getResource(`/books/${id}/`);
 		return this._transformBook(res);
-	}
+	};
 
-	async getAllCharacters() {
+	getAllCharacters = async () => {
 		const res = await this.getResource(`/characters?page=5&pageSize=10`);
 		return res.map((item) => this._transformCharacter(item));
-	}
+	};
 
-	async getCharacter(id) {
+	getCharacter = async (id) => {
 		const res = await this.getResource(`/characters/${id}`);
 		return this._transformCharacter(res);
-	}
+	};
 
-	async getAllHouses() {
+	getAllHouses = async () => {
 		const res = await this.getResource(`/houses/`);
 		return res.map(this._transformHouse);
-	}
+	};
 
-	async getHouse(id) {
+	getHouse = async (id) => {
 		const res = await this.getResource(`/houses/${id}/`);
 		return this._transformHouse(res);
-	}
+	};
 
-	isKnown(data) {
+	isKnown = (data) => {
 		if (data) {
 			return data;
 		} else {
 			return "Unknown";
 		}
-	}
+	};
 
 	_extractId = (item) => {
 		const idRegExp = /\/([0-9]*)$/;
 		return item.url.match(idRegExp)[1];
 	};
 
-	_transformCharacter(character) {
+	_transformCharacter = (character) => {
 		return {
 			id: this._extractId(character),
 			name: this.isKnown(character.name),
@@ -63,9 +64,9 @@ export default class GotService {
 			died: this.isKnown(character.died),
 			culture: this.isKnown(character.culture),
 		};
-	}
+	};
 
-	_transformHouse(house) {
+	_transformHouse = (house) => {
 		return {
 			id: this._extractId(house),
 			name: this.isKnown(house.name),
@@ -75,9 +76,9 @@ export default class GotService {
 			overlord: this.isKnown(house.overlord),
 			ansectralWeapons: this.isKnown(house.ansectralWeapons),
 		};
-	}
+	};
 
-	_transformBook(book) {
+	_transformBook = (book) => {
 		return {
 			id: this._extractId(book),
 			name: this.isKnown(book.name),
@@ -85,5 +86,5 @@ export default class GotService {
 			publiser: this.isKnown(book.publiser),
 			released: this.isKnown(book.released),
 		};
-	}
+	};
 }

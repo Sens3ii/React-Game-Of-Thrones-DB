@@ -8,7 +8,6 @@ import ErrorMessage from "../errorMessage";
 const RandomCharBlock = styled.div`
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
-	margin-bottom: 40px;
 	h4 {
 		margin-bottom: 20px;
 		text-align: center;
@@ -54,7 +53,7 @@ export default class RandomChar extends Component {
 		const spinner = loading ? <Spinner /> : null;
 		const content = !(loading || error) ? <Content char={char} /> : null;
 		return (
-			<RandomCharBlock className="rounded">
+			<RandomCharBlock className="rounded mb-3">
 				{errorMessage}
 				{spinner}
 				{content}

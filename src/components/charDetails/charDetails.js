@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+
 import gotService from "../../services/gotService";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
+
 const CharDetailsBlock = styled.div`
 	background-color: #fff;
 	padding: 25px 25px 15px 25px;
-	margin-bottom: 40px;
 	h4 {
 		margin-bottom: 20px;
 		text-align: center;
 	}
-`;
-const SelectError = styled.span`
-	color: #fff;
-	text-align: center;
-	font-size: 26px;
 `;
 
 export default class CharDetails extends Component {
@@ -29,8 +25,10 @@ export default class CharDetails extends Component {
 	componentDidMount() {
 		this.updateChar();
 	}
-	componentDidUpdate(prevProps, prevState) {
+
+	componentDidUpdate(prevProps) {
 		if (this.props.charId !== prevProps.charId) {
+			this.setState({ loading: true });
 			this.updateChar();
 		}
 	}
@@ -39,15 +37,15 @@ export default class CharDetails extends Component {
 		this.setState({ loading: false });
 	};
 
-	onError = (err) => {
+	onError = () => {
 		this.setState({ error: true, loading: false });
 	};
+
 	updateChar() {
 		const { charId } = this.props;
 		if (!charId) {
 			return;
 		}
-		this.setState({ loading: true });
 		this.gotService
 			.getCharacter(charId)
 			.then((character) => {
@@ -56,13 +54,14 @@ export default class CharDetails extends Component {
 			.then(this.onCharLoaded)
 			.catch(this.onError);
 	}
+
 	render() {
 		const { char, error, loading } = this.state;
 		const errorMessage = error ? <ErrorMessage /> : null;
 		const spinner = loading ? <Spinner /> : null;
 		const content = !(loading || error) ? <Content char={char} /> : null;
 		return (
-			<CharDetailsBlock className="rounded">
+			<CharDetailsBlock className="rounded mb-3">
 				{errorMessage}
 				{spinner}
 				{content}
