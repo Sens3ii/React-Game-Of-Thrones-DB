@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./itemList.css";
 import Spinner from "../spinner";
-
+import PropTypes from "prop-types";
 export default class ItemList extends Component {
 	state = {
 		itemList: null,
@@ -46,3 +46,11 @@ export default class ItemList extends Component {
 		);
 	}
 }
+
+ItemList.defaultProps = {
+	onItemSelected: () => {},
+};
+
+ItemList.propTypes = {
+	onItemSelected: PropTypes.func,
+};

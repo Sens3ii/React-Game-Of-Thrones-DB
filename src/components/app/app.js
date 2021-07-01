@@ -30,7 +30,7 @@ export default class App extends Component {
 		if (this.state.error) {
 			return <ErrorMessage />;
 		}
-		const char = this.state.showRandomChar ? <RandomChar /> : null;
+		const char = this.state.showRandomChar ? <RandomChar interval={10000} /> : null;
 		return (
 			<Router>
 				<div className="app">
@@ -47,9 +47,9 @@ export default class App extends Component {
 							</div>
 						</div>
 						<Route path="/" exact component={() => <h1>Welcome</h1>} />
-						<Route path="/characters/" component={CharacterPage} />
+						<Route path="/characters/" exact component={CharacterPage} />
 						<Route path="/books/" exact component={BookPage} />
-						<Route path="/houses/" component={HousePage} />
+						<Route path="/houses/" exact component={HousePage} />
 						<Route
 							path="/books/:id"
 							render={({ match, location, history }) => {
