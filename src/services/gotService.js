@@ -27,7 +27,7 @@ export default class GotService {
 		return res.map((item) => this._transformCharacter(item));
 	};
 
-	getCharacter = async (id) => {
+	getCharacter = async (id = 23) => {
 		const res = await this.getResource(`/characters/${id}`);
 		return this._transformCharacter(res);
 	};

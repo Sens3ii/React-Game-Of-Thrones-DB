@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "./randomChar.css";
 import styled from "styled-components";
 import gotService from "../../services/gotService";
 import Spinner from "../spinner";

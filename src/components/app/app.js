@@ -4,7 +4,6 @@ import Header from "../header";
 import RandomChar from "../randomChar";
 import CharacterPage from "../characterPage";
 import ErrorMessage from "../errorMessage";
-import ItemList from "../itemList";
 import gotService from "../../services/gotService";
 
 export default class App extends Component {
@@ -39,7 +38,7 @@ export default class App extends Component {
 				</div>
 				<div className="container">
 					<div className="row">
-						<div className="col-lg-5">
+						<div className="col-lg-6">
 							<button onClick={this.toggleRandomChar} className="btn btn-dark mb-3">
 								Toggle character
 							</button>
@@ -47,22 +46,6 @@ export default class App extends Component {
 						</div>
 					</div>
 					<CharacterPage />
-					{/* <div className="row">
-						<div className="col-md-6">
-							<ItemList onCharSelected={this.onCharSelected} getData={this.gotService.getAllBooks()} />
-						</div>
-						<div className="col-md-6">
-							<BookDetails charId={this.state.selectedChar} />
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-md-6">
-							<ItemList onCharSelected={this.onCharSelected} getData={this.gotService.getAllHouses()} />
-						</div>
-						<div className="col-md-6">
-							<BookDetails charId={this.state.selectedChar} />
-						</div>
-					</div> */}
 				</div>
 			</>
 		);
