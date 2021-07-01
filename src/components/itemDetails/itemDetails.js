@@ -63,7 +63,7 @@ export default class ItemDetails extends Component {
 	}
 
 	render() {
-		if (!this.state.item) {
+		if (!this.state.item && !this.state.loading) {
 			return (
 				<ItemDetailsBlock className="rounded mb-3">
 					<h4>Select an item from the list</h4>
