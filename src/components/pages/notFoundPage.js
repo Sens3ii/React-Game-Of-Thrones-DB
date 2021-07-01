@@ -4,13 +4,13 @@ import styled from "styled-components";
 
 const NotFoundBlock = styled.div`
 	color: #fff;
-	text-weight: bold;
+	font-weight: 700;
 `;
 
 export default class NotFoundPage extends Component {
 	render() {
 		return (
-			<NotFoundBlock className="not-found d-flex flex-row align-items-center mt-5 pt-3">
+			<NotFoundBlock className="d-flex flex-row align-items-center mt-5 pt-3">
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-md-12 text-center">

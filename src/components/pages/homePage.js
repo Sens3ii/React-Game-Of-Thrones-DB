@@ -1,39 +1,31 @@
 import React, { Component } from "react";
-import RandomChar from "../randomChar";
-import ErrorMessage from "../errorMessage";
+import styled from "styled-components";
+import RandomCharBlock from "./randomCharBlock";
+
+const HomePageBlock = styled.div`
+	color: #fff;
+`;
 
 export default class HomePage extends Component {
-	state = {
-		showRandomChar: true,
-		error: false,
-	};
-
-	componentDidCatch() {
-		this.setState({ error: true });
-	}
-
-	toggleRandomChar = () => {
-		this.setState((state) => {
-			return {
-				showRandomChar: !state.showRandomChar,
-			};
-		});
-	};
-
 	render() {
-		if (this.state.error) {
-			return <ErrorMessage />;
-		}
-		const char = this.state.showRandomChar ? <RandomChar interval={10000} /> : null;
 		return (
-			<div className="row">
-				<div className="col-lg-6">
-					<button onClick={this.toggleRandomChar} className="btn btn-dark mb-3">
-						Toggle character
-					</button>
-					{char}
-				</div>
-			</div>
+			<>
+				<HomePageBlock className="d-flex flex-row align-items-center my-4 pt-4">
+					<div className="container">
+						<div className="row justify-content-center">
+							<div className="col-md-12 text-center">
+								<span className="display-1 d-block">Game of Thrones DB</span>
+								<div className="mb-2 lead">React application</div>
+								<div className="mb-3 lead">
+									Working with
+									<a href="https://www.anapioficeandfire.com/"> An API of Ice And Fire</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</HomePageBlock>
+				<RandomCharBlock />
+			</>
 		);
 	}
 }
