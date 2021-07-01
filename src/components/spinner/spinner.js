@@ -3,16 +3,12 @@ import "./spinner.css";
 
 const Spinner = () => {
 	return (
-		<div className="loadingio-spinner-double-ring-69f5yn3o8jw">
-			<div className="ldio-g11z26zfffe">
+		<div className="loadingio-spinner-cube-qw9t558acd">
+			<div className="ldio-l3dkhenxt19">
 				<div />
 				<div />
-				<div>
-					<div />
-				</div>
-				<div>
-					<div />
-				</div>
+				<div />
+				<div />
 			</div>
 		</div>
 	);
