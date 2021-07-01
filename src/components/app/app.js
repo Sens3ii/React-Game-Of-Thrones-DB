@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Header from "../header";
-import { CharacterPage, BookPage, HousePage, BookItem, HomePage } from "../pages";
+import { CharacterPage, BookPage, HousePage, BookItem, HomePage, NotFoundPage } from "../pages";
 import ErrorMessage from "../errorMessage";
 
 import "./app.css";
@@ -25,24 +25,27 @@ export default class App extends Component {
 						<Header />
 					</div>
 					<div className="container">
-						<Route
-							exact
-							path="/"
-							render={() => {
-								return <Redirect to="/home" />;
-							}}
-						/>
-						<Route path="/home" exact component={HomePage} />
-						<Route path="/characters/" exact component={CharacterPage} />
-						<Route path="/books/" exact component={BookPage} />
-						<Route path="/houses/" exact component={HousePage} />
-						<Route
-							path="/books/:id"
-							render={({ match, location, history }) => {
-								const { id } = match.params;
-								return <BookItem bookId={id} />;
-							}}
-						/>
+						<Switch>
+							<Route
+								exact
+								path="/"
+								render={() => {
+									return <Redirect to="/home" />;
+								}}
+							/>
+							<Route path="/home" exact component={HomePage} />
+							<Route path="/characters/" exact component={CharacterPage} />
+							<Route path="/books/" exact component={BookPage} />
+							<Route path="/houses/" exact component={HousePage} />
+							<Route
+								path="/books/:id"
+								render={({ match, location, history }) => {
+									const { id } = match.params;
+									return <BookItem bookId={id} />;
+								}}
+							/>
+							<Route path="*" exact component={NotFoundPage} />
+						</Switch>
 					</div>
 				</div>
 			</Router>
