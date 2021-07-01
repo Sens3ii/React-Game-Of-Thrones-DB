@@ -14,16 +14,17 @@ export default class GotService {
 
 	getAllBooks = async () => {
 		const res = await this.getResource(`/books/`);
-		return res.map(this._transformBook);
+		return res.map((item) => this._transformBook(item));
 	};
 
 	getBook = async (id) => {
-		const res = await this.getResource(`/books/${id}/`);
+		const res = await this.getResource(`/books/${id}`);
+		console.log(this._transformBook(res));
 		return this._transformBook(res);
 	};
 
 	getAllCharacters = async () => {
-		const res = await this.getResource(`/characters?page=5&pageSize=10`);
+		const res = await this.getResource(`/characters?page=2&pageSize=10`);
 		return res.map((item) => this._transformCharacter(item));
 	};
 
@@ -33,12 +34,12 @@ export default class GotService {
 	};
 
 	getAllHouses = async () => {
-		const res = await this.getResource(`/houses/`);
-		return res.map(this._transformHouse);
+		const res = await this.getResource(`/houses?page=2&pageSize=10`);
+		return res.map((item) => this._transformHouse(item));
 	};
 
 	getHouse = async (id) => {
-		const res = await this.getResource(`/houses/${id}/`);
+		const res = await this.getResource(`/houses/${id}`);
 		return this._transformHouse(res);
 	};
 
@@ -73,6 +74,7 @@ export default class GotService {
 			region: this.isKnown(house.region),
 			words: this.isKnown(house.words),
 			titles: this.isKnown(house.titles),
+			coatOfArms: this.isKnown(house.coatOfArms),
 			overlord: this.isKnown(house.overlord),
 			ansectralWeapons: this.isKnown(house.ansectralWeapons),
 		};
@@ -83,8 +85,9 @@ export default class GotService {
 			id: this._extractId(book),
 			name: this.isKnown(book.name),
 			numberOfPages: this.isKnown(book.numberOfPages),
-			publiser: this.isKnown(book.publiser),
+			publisher: this.isKnown(book.publisher),
 			released: this.isKnown(book.released),
+			country: this.isKnown(book.country),
 		};
 	};
 }

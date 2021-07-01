@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Header from "../header";
 import RandomChar from "../randomChar";
-import CharacterPage from "../characterPage";
+import { CharacterPage, BookPage, HousePage } from "../pages";
 import ErrorMessage from "../errorMessage";
 import gotService from "../../services/gotService";
 
@@ -46,6 +46,8 @@ export default class App extends Component {
 						</div>
 					</div>
 					<CharacterPage />
+					<BookPage />
+					<HousePage />
 				</div>
 			</>
 		);

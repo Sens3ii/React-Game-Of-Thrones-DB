@@ -42,7 +42,7 @@ export default class ItemDetails extends Component {
 	}
 
 	onItemLoaded = () => {
-		this.setState({ loading: false });
+		this.setState({ error: false, loading: false });
 	};
 
 	onError = () => {
@@ -64,7 +64,11 @@ export default class ItemDetails extends Component {
 
 	render() {
 		if (!this.state.item) {
-			return <span className="select-error">Please select item in the list</span>;
+			return (
+				<ItemDetailsBlock className="rounded mb-3">
+					<h4>Select an item from the list</h4>
+				</ItemDetailsBlock>
+			);
 		}
 		const { item, error, loading } = this.state;
 
