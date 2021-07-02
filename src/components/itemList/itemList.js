@@ -1,56 +1,29 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./itemList.css";
 import Spinner from "../spinner";
-import PropTypes from "prop-types";
-export default class ItemList extends Component {
-	state = {
-		itemList: null,
-		error: false,
-	};
 
-	componentDidMount() {
-		const { getData } = this.props;
-		getData
-			.then((itemList) => {
-				this.setState({ itemList });
-			})
-			.catch(this.onError);
-	}
+function ItemList({ getData, onItemSelected, renderItem }) {
+	const [itemList, updateList] = useState([]);
 
-	onError = (err) => {
-		this.setState({ error: true });
-	};
+	useEffect(() => {
+		getData.then((data) => updateList(data));
+	}, []);
 
-	renderItems(arr) {
+	function renderItems(arr) {
 		return arr.map((item) => {
 			const { id } = item;
-			const label = this.props.renderItem(item);
+			const label = renderItem(item);
 			return (
-				<li key={id} className="list-group-item" onClick={() => this.props.onItemSelected(id)}>
+				<li key={id} className="list-group-item" onClick={() => onItemSelected(id)}>
 					{label}
 				</li>
 			);
 		});
 	}
 
-	render() {
-		const { itemList } = this.state;
-		const spinner = !itemList ? <Spinner /> : null;
-		const items = itemList ? this.renderItems(itemList) : null;
+	const items = itemList ? renderItems(itemList) : <Spinner />;
 
-		return (
-			<ul className="item-list list-group mb-3">
-				{spinner}
-				{items}
-			</ul>
-		);
-	}
+	return <ul className="item-list list-group mb-3">{items}</ul>;
 }
 
-ItemList.defaultProps = {
-	onItemSelected: () => {},
-};
-
-ItemList.propTypes = {
-	onItemSelected: PropTypes.func,
-};
+export default ItemList;
