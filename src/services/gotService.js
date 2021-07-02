@@ -19,7 +19,6 @@ export default class GotService {
 
 	getBook = async (id) => {
 		const res = await this.getResource(`/books/${id}`);
-		console.log(this._transformBook(res));
 		return this._transformBook(res);
 	};
 
