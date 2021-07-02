@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const NotFoundBlock = styled.div`
 	color: #fff;
-	font-weight: 700;
 `;
 
 export default class NotFoundPage extends Component {
