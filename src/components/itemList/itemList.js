@@ -4,9 +4,13 @@ import Spinner from "../spinner";
 
 function ItemList({ getData, onItemSelected, renderItem }) {
 	const [itemList, updateList] = useState([]);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
-		getData.then((data) => updateList(data));
+		getData.then((data) => {
+			updateList(data);
+			setIsLoaded(true);
+		});
 	}, []);
 
 	function renderItems(arr) {
@@ -21,8 +25,10 @@ function ItemList({ getData, onItemSelected, renderItem }) {
 		});
 	}
 
-	const items = itemList ? renderItems(itemList) : <Spinner />;
-
+	if (!isLoaded) {
+		return <Spinner />;
+	}
+	const items = renderItems(itemList);
 	return <ul className="item-list list-group mb-3">{items}</ul>;
 }
 
