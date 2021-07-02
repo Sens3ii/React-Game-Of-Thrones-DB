@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
@@ -12,77 +12,58 @@ const ItemDetailsBlock = styled.div`
 	}
 `;
 
-const Field = ({ item, field, label }) => {
-	return (
-		<li className="list-group-item d-flex justify-content-between">
-			<span className="term">{label}</span>
-			<span>{item[field]}</span>
-		</li>
-	);
-};
+function ItemDetails({ itemId, getData, children }) {
+	const [item, setItem] = useState({});
+	const [isError, setError] = useState(false);
+	const [isLoaded, setLoaded] = useState(false);
 
-export { Field };
+	useEffect(() => {
+		updateItem();
+		return () => {
+			updateItem({});
+		};
+	}, []);
 
-export default class ItemDetails extends Component {
-	state = {
-		item: null,
-		error: false,
-		loading: true,
+	const onItemLoaded = () => {
+		setError(false);
+		setLoaded(true);
 	};
 
-	componentDidMount() {
-		this.updateItem();
-	}
-
-	componentDidUpdate(prevProps) {
-		if (this.props.itemId !== prevProps.itemId) {
-			this.setState({ loading: true });
-			this.updateItem();
-		}
-	}
-
-	onItemLoaded = () => {
-		this.setState({ error: false, loading: false });
+	const onError = () => {
+		setError(true);
+		setLoaded(true);
 	};
 
-	onError = () => {
-		this.setState({ error: true, loading: false });
-	};
-
-	updateItem() {
-		const { itemId, getData } = this.props;
+	function updateItem() {
 		if (!itemId) {
 			return;
 		}
 		getData(itemId)
 			.then((item) => {
-				this.setState({ item });
+				setItem(item);
+				onItemLoaded();
 			})
-			.then(this.onItemLoaded)
-			.catch(this.onError);
+			.catch(onError);
 	}
 
-	render() {
-		if (!this.state.item && !this.state.loading) {
-			return (
-				<ItemDetailsBlock className="rounded mb-3">
-					<h4>Select an item from the list</h4>
-				</ItemDetailsBlock>
-			);
-		}
-		const { item, error, loading } = this.state;
-
-		const errorMessage = error ? <ErrorMessage /> : null;
-		const spinner = loading ? <Spinner /> : null;
-		const content = !(loading || error) ? <Content item={item} children={this.props.children} /> : null;
+	if (!item && isLoaded) {
 		return (
 			<ItemDetailsBlock className="rounded mb-3">
-				{errorMessage}
-				{spinner}
-				{content}
+				<h4>Select an item from the list</h4>
 			</ItemDetailsBlock>
 		);
 	}
+
+	const errorMessage = isError ? <ErrorMessage /> : null;
+	const spinner = !isLoaded ? <Spinner /> : null;
+	const content = isLoaded || !isError ? <Content item={item} children={children} /> : null;
+	return (
+		<ItemDetailsBlock className="rounded mb-3">
+			{errorMessage}
+			{spinner}
+			{content}
+		</ItemDetailsBlock>
+	);
 }
 
 const Content = ({ item, children }) => {
@@ -98,3 +79,15 @@ const Content = ({ item, children }) => {
 		</>
 	);
 };
+
+const Field = ({ item, field, label }) => {
+	return (
+		<li className="list-group-item d-flex justify-content-between">
+			<span className="term">{label}</span>
+			<span>{item[field]}</span>
+		</li>
+	);
+};
+
+export { Field };
+export default ItemDetails;

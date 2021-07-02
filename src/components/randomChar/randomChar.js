@@ -16,7 +16,9 @@ function RandomChar({ interval, getData }) {
 	useEffect(() => {
 		updateChar();
 		let randCharInterval = setInterval(updateChar, interval);
-		return clearInterval(randCharInterval);
+		return () => {
+			clearInterval(randCharInterval);
+		};
 	}, []);
 
 	const [char, setChar] = useState({});
