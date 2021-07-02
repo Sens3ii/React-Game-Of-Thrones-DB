@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import gotService from "../../services/gotService";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
-import PropTypes from "prop-types";
 
 const RandomCharBlock = styled.div`
 	background-color: #fff;
@@ -14,61 +12,45 @@ const RandomCharBlock = styled.div`
 	}
 `;
 
-export default class RandomChar extends Component {
-	componentDidMount() {
-		this.updateChar();
-		this.randCharInterval = setInterval(this.updateChar, this.props.interval);
-	}
+function RandomChar({ interval, getData }) {
+	useEffect(() => {
+		updateChar();
+		let randCharInterval = setInterval(updateChar, interval);
+		return clearInterval(randCharInterval);
+	}, []);
 
-	componentWillUnmount() {
-		clearInterval(this.randCharInterval);
-	}
-	gotService = new gotService();
-	state = {
-		char: {},
-		loading: true,
-		error: false,
+	const [char, setChar] = useState({});
+	const [isLoaded, setLoaded] = useState(false);
+	const [isError, setError] = useState(false);
+
+	const onCharLoaded = (char) => {
+		setChar(char);
+		setLoaded(true);
 	};
 
-	onCharLoaded = (char) => {
-		this.setState({ char, loading: false });
+	const onError = (err) => {
+		setError(true);
+		setLoaded(true);
 	};
 
-	onError = (err) => {
-		this.setState({ error: true, loading: false });
-	};
-
-	updateChar = () => {
+	const updateChar = () => {
 		const id = Math.floor(Math.random() * 140 + 25);
-		// const id = 2222222;
-		this.gotService
-			.getCharacter(id)
-			.then(this.onCharLoaded)
-			.catch(this.onError);
+		getData(id)
+			.then(onCharLoaded)
+			.catch(onError);
 	};
 
-	render() {
-		const { char, loading, error } = this.state;
-		const errorMessage = error ? <ErrorMessage /> : null;
-		const spinner = loading ? <Spinner /> : null;
-		const content = !(loading || error) ? <Content char={char} /> : null;
-		return (
-			<RandomCharBlock className="rounded mb-3">
-				{errorMessage}
-				{spinner}
-				{content}
-			</RandomCharBlock>
-		);
-	}
+	const errorMessage = isError ? <ErrorMessage /> : null;
+	const spinner = !isLoaded ? <Spinner /> : null;
+	const content = isLoaded || !isError ? <Content char={char} /> : null;
+	return (
+		<RandomCharBlock className="rounded mb-3">
+			{errorMessage}
+			{spinner}
+			{content}
+		</RandomCharBlock>
+	);
 }
-
-RandomChar.defaultProps = {
-	interval: 10000,
-};
-
-RandomChar.propTypes = {
-	interval: PropTypes.number,
-};
 
 const Content = ({ char }) => {
 	const { name, gender, born, died, culture } = char;
@@ -96,3 +78,5 @@ const Content = ({ char }) => {
 		</>
 	);
 };
+
+export default RandomChar;
