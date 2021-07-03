@@ -13,16 +13,13 @@ const ItemDetailsBlock = styled.div`
 `;
 
 function ItemDetails({ itemId, getData, children }) {
+	useEffect(() => {
+		setLoaded(false);
+		updateItem();
+	}, [itemId]);
 	const [item, setItem] = useState({});
 	const [isError, setError] = useState(false);
 	const [isLoaded, setLoaded] = useState(false);
-
-	useEffect(() => {
-		updateItem();
-		return () => {
-			updateItem({});
-		};
-	}, []);
 
 	const onItemLoaded = () => {
 		setError(false);
@@ -34,7 +31,7 @@ function ItemDetails({ itemId, getData, children }) {
 		setLoaded(true);
 	};
 
-	function updateItem() {
+	const updateItem = () => {
 		if (!itemId) {
 			return;
 		}
@@ -44,7 +41,7 @@ function ItemDetails({ itemId, getData, children }) {
 				onItemLoaded();
 			})
 			.catch(onError);
-	}
+	};
 
 	if (!item && isLoaded) {
 		return (

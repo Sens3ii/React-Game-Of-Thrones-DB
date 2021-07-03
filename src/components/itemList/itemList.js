@@ -7,10 +7,13 @@ function ItemList({ getData, onItemSelected, renderItem }) {
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	useEffect(() => {
+		const ac = new AbortController();
+
 		getData.then((data) => {
 			updateList(data);
 			setIsLoaded(true);
 		});
+		return () => ac.abort();
 	}, []);
 
 	function renderItems(arr) {
