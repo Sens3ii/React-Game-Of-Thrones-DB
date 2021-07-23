@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "51302650b8a8bb04aaff",
+    "revision": "a1ed2e9e0be2c39425ca",
     "url": "/React-Game-Of-Thrones-DB/static/css/main.7e426cd8.chunk.css"
   },
   {
-    "revision": "51302650b8a8bb04aaff",
-    "url": "/React-Game-Of-Thrones-DB/static/js/main.51302650.chunk.js"
+    "revision": "a1ed2e9e0be2c39425ca",
+    "url": "/React-Game-Of-Thrones-DB/static/js/main.a1ed2e9e.chunk.js"
   },
   {
-    "revision": "40672a22e7a0986769b9",
+    "revision": "af8f132521f6be151c81",
     "url": "/React-Game-Of-Thrones-DB/static/css/1.c7b8df28.chunk.css"
   },
   {
-    "revision": "40672a22e7a0986769b9",
-    "url": "/React-Game-Of-Thrones-DB/static/js/1.40672a22.chunk.js"
+    "revision": "af8f132521f6be151c81",
+    "url": "/React-Game-Of-Thrones-DB/static/js/1.af8f1325.chunk.js"
   },
   {
     "revision": "2695b2cf3dbb5add0a47",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/React-Game-Of-Thrones-DB/static/media/got.608376fe.jpg"
   },
   {
-    "revision": "b5f7e8418060df718fea253bd2a799b9",
+    "revision": "5072eda4b24b34998ee6eb8f0abedf01",
     "url": "/React-Game-Of-Thrones-DB/index.html"
   }
 ];
