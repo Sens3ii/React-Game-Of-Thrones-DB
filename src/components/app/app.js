@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Header from "../header";
 import { CharacterPage, BookPage, HousePage, BookItem, HomePage, NotFoundPage } from "../pages";
 import ErrorMessage from "../errorMessage";

@@ -44,7 +44,7 @@ function RandomChar({ interval, getData }) {
 
 	const errorMessage = isError ? <ErrorMessage /> : null;
 	const spinner = !isLoaded ? <Spinner /> : null;
-	const content = isLoaded || !isError ? <Content char={char} /> : null;
+	const content = isLoaded && !isError ? <Content char={char} /> : null;
 	return (
 		<RandomCharBlock className="rounded mb-3">
 			{errorMessage}

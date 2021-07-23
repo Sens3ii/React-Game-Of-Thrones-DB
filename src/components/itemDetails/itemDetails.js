@@ -53,7 +53,7 @@ function ItemDetails({ itemId, getData, children }) {
 
 	const errorMessage = isError ? <ErrorMessage /> : null;
 	const spinner = !isLoaded ? <Spinner /> : null;
-	const content = isLoaded || !isError ? <Content item={item} children={children} /> : null;
+	const content = isLoaded && !isError ? <Content item={item} children={children} /> : null;
 	return (
 		<ItemDetailsBlock className="rounded mb-3">
 			{errorMessage}

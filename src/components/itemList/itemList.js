@@ -8,7 +8,6 @@ function ItemList({ getData, onItemSelected, renderItem }) {
 
 	useEffect(() => {
 		const ac = new AbortController();
-
 		getData.then((data) => {
 			updateList(data);
 			setIsLoaded(true);
