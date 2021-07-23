@@ -1,15 +1,20 @@
-### React application. Working with Game of Thrones db.
+#  React Game of Thrones DB
+## Description:
+This repository was created to practice working with React.
+The site works with [Ice and Fire API](https://anapioficeandfire.com/). Hooks are also used.
+Available on github pages -> [WebSite](https://sens3ii.github.io/React-Game-Of-Thrones-DB/)
+## Technologies used:
+* HTML, CSS
+* Bootstrap
+* Styled Components
+* React
+* React Patterns
+* React Router
+* React Hooks
 
----
-
-### Used:
-
-    1. React
-    2. React Patterns
-    3. React Router
-    4. React Hooks
----
 
 
-https://user-images.githubusercontent.com/60396622/124340423-f8e25980-dbd6-11eb-9a4c-f351d4585955.mp4
+
+
+
 
